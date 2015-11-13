@@ -10,10 +10,11 @@ public class User
 {
   static Long   counter = 0l;
 
-  public Long   id;
+  public Long userId;
   public String firstName;
   public String lastName;
   public int age;
+  public String gender;
   public String occupation;
   
   public Map<Long, Movie> movies = new HashMap<>();
@@ -22,21 +23,24 @@ public class User
   {
   }
   
-  public User(String firstName, String lastName, int age, String occupation)
+  public User(String firstName, String lastName, int age, String gender, String occupation)
   {
-    this.id        = counter++;
+	
+    this.userId        = counter++;
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
+    this.gender = gender;
     this.occupation = occupation;
   }
   
   public String toString()
   {
-    return toStringHelper(this).addValue(id)
+    return toStringHelper(this).addValue(userId)
     		                   .addValue(firstName)
                                .addValue(lastName)
                                .addValue(age)
+                               .addValue(gender)
                                .addValue(occupation)                            
                                .toString();
   }
@@ -44,7 +48,8 @@ public class User
   @Override  
   public int hashCode()  
   {  
-     return Objects.hashCode(this.lastName, this.firstName, this.age, this.occupation);  
+     return Objects.hashCode(this.lastName, this.firstName, this.age, 
+    		 this.gender, this.occupation);  
   }  
   
   @Override
@@ -56,6 +61,7 @@ public class User
       return Objects.equal(firstName, other.firstName) 
           && Objects.equal(lastName,  other.lastName)
           && Objects.equal(age,     other.age)
+          && Objects.equal(gender, other.gender)
           && Objects.equal(occupation,  other.occupation);
     }
     else

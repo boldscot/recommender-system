@@ -10,14 +10,15 @@ import static models.Fixtures.users;
 
 public class UserTest
 {
-  User stephen = new User ("stephen", "collins", 28,  "student");
+  User stephen = new User ("stephen", "collins", 28, "M",  "student");
 
   @Test
   public void testCreate()
   {
     assertEquals ("stephen", stephen.firstName);
     assertEquals ("collins", stephen.lastName);
-    assertEquals (28,   stephen.age);   
+    assertEquals (28,   stephen.age); 
+    assertEquals ("M",	stephen.gender);
     assertEquals ("student", stephen.occupation);   
   }
 
@@ -27,7 +28,7 @@ public class UserTest
     Set<Long> ids = new HashSet<>();
     for (User user : users)
     {
-      ids.add(user.id);
+      ids.add(user.userId);
     }
     assertEquals (users.length, ids.size());
   }
@@ -35,14 +36,14 @@ public class UserTest
   @Test
   public void testToString()
   {
-    assertEquals ("User{" + stephen.id + ", stephen, collins, 28, student}", stephen.toString());
+    assertEquals ("User{" + stephen.userId + ", stephen, collins, 28, M, student}", stephen.toString());
   }
   
   @Test
   public void testEquals()
   {
-    User stephen2 = new User ("stephen", "collins", 28,  "student"); 
-    User geralt  = new User ("geralt", "ofRivia", 100,  "witcher"); 
+    User stephen2 = new User ("stephen", "collins", 28, "M",  "student"); 
+    User geralt  = new User ("geralt", "ofRivia", 100, "M",  "witcher"); 
 
     assertEquals(stephen, stephen);
     assertEquals(stephen, stephen2);

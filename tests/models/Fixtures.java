@@ -4,10 +4,10 @@ public class Fixtures
 {
   public static User[] users =
   {
-    new User ("nathan", "drake", 40,  "thief"),
-    new User ("big",  "boss", 50,   "legendary soldier"),
-    new User ("geralt", "ofRivia", 100,  "witcher"),
-    new User ("john","marston", 47, "cowboy")
+    new User ("nathan", "drake", 40, "M",  "thief"),
+    new User ("big",  "boss", 50, "M", "legendary soldier"),
+    new User ("geralt", "ofRivia", 100, "M", "witcher"),
+    new User ("john","marston", 47, "M", "cowboy")
   };
 
  /* public static Activity[] activities =
