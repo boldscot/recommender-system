@@ -8,7 +8,7 @@ import com.google.common.base.Objects;
 
 public class User 
 {
-  static Long   counter = 0l;
+  static Long counter = 0l;
 
   public Long userId;
   public String firstName;
@@ -17,7 +17,7 @@ public class User
   public String gender;
   public String occupation;
   
-  public Map<Long, Movie> movies = new HashMap<>();
+  public Map<Long, Movie> movie = new HashMap<>();
   
   public User()
   {

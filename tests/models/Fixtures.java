@@ -10,16 +10,19 @@ public class Fixtures
     new User ("john","marston", 47, "M", "cowboy")
   };
 
- /* public static Activity[] activities =
+ public static Movie[] movies =
   {
-    new Activity ("walk",  "fridge", 0.001),
-    new Activity ("walk",  "bar",    1.0),
-    new Activity ("run",   "work",   2.2),
-    new Activity ("walk",  "shop",   2.5),
-    new Activity ("cycle", "school", 4.5)
+    new Movie ("spectre",  "2015", 
+    		"http://www.imdb.com/title/tt2379713/?ref_=nv_sr_1"),
+    new Movie("hitman",  "2007", 
+    		"http://www.imdb.com/title/tt0465494/?ref_=nv_sr_2"),
+    new Movie ("skyfall", "2012", 
+    		"http://www.imdb.com/title/tt1074638/?ref_=nv_sr_1"),
+    new Movie("unforgiven",  "1992", 
+    		"http://www.imdb.com/title/tt1074638/?ref_=nv_sr_1"),
   };
 
-  public static Location[]locations =
+  /*public static Location[]locations =
   {
     new Location(23.3f, 33.3f),
     new Location(34.4f, 45.2f),  
