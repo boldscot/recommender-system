@@ -10,16 +10,15 @@ import models.User;
  */
 public interface RecommenderInterface 
 {
-	User createUser(String firstName, String lastName, int age,
+	void createUser(String firstName, String lastName, int age,
 			String gender,String occupation);
 	void removeUser(Long userId);
-	
 	void addMovie(String title, String year, String  url);
 	void addRating(Long userID, Long movieID, String rating);
 	Movie getMovie(Long movieID);
 	User getUserRatings(Long userID);
 	//getUserRecommendations(userID)
 	//getTopTenMovies()
-	void load();
-	void store();
+	void load() throws Exception;
+	void store() throws Exception;
 }

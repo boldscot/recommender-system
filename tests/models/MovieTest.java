@@ -2,8 +2,10 @@ package models;
 
 import static org.junit.Assert.*;
 import static models.Fixtures.movies;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.Test;
 
 public class MovieTest 
@@ -37,5 +39,17 @@ public class MovieTest
 				", saving private ryan, 1998, "
 				+ "http://www.imdb.com/title/tt0120815/}", movie.toString());
 	}
+	
+	@Test
+	  public void testEquals()
+	  {
+	    Movie movie2 = new Movie("saving private ryan", "1998",
+				"http://www.imdb.com/title/tt0120815/"); 
+	    Movie goodfellas  = new Movie ("goodfellas", "1990",""); 
+
+	    assertEquals(movie, movie);
+	    assertEquals(movie, movie2);
+	    assertNotEquals(movie, goodfellas);
+	  }
 
 }

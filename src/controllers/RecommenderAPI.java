@@ -3,48 +3,49 @@ package controllers;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
+import utils.Serializer;
 import models.Movie;
 import models.User;
 import edu.princeton.cs.introcs.In;
 
 public class RecommenderAPI implements RecommenderInterface
 {
+	private Serializer serializer;
+
 	public static Map<Long, User> userIndex = new HashMap<>();
-	
-	public User createUser(String firstName, String lastName, 
+	public static Map<Long, Movie> movieIndex = new HashMap<>();
+
+	public void createUser(String firstName, String lastName, 
 			int age, String gender, String occupation) 
-	  {
-	    User user = new User (firstName, lastName, age, gender, occupation);
-	    userIndex.put(user.userId, user);
-	    return user;
-	  }
+	{
+		User user = new User (firstName, lastName, age, gender, occupation);
+		userIndex.put(user.userId, user);
+	}
 
 	@Override
 	public void removeUser(Long userId) 
 	{
-		 userIndex.remove(userId);
+		userIndex.remove(userId);
 	}
 
 	@Override
 	public void addMovie(String title, String year, String url) 
 	{
-		// TODO Auto-generated method stub
-		
+		Movie movie = new Movie (title, year, url);
+		movieIndex.put(movie.movieId, movie);
 	}
 
 	@Override
-	public void addRating(Long userID, Long movieID, String rating) 
+	public void addRating(Long userID, Long movieId, String rating) 
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public Movie getMovie(Long movieID) 
+	public Movie getMovie(Long movieId) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return movieIndex.get(movieId);
 	}
 
 	@Override
@@ -55,17 +56,17 @@ public class RecommenderAPI implements RecommenderInterface
 	}
 
 	@Override
-	public void load() 
+	@SuppressWarnings("unchecked")
+	public void load() throws Exception
 	{
-		// TODO Auto-generated method stub
-		
+		serializer.read();
+		userIndex = (Map<Long, User>) serializer.pop();
 	}
 
 	@Override
 	public void store() 
 	{
-		// TODO Auto-generated method stub
-		
+		serializer.push(userIndex);
 	}
 }
 
