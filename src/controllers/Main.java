@@ -36,7 +36,7 @@ public class Main
 			}
 		}
 		
-		System.out.println(recommender.userIndex);
+		System.out.println(recommender.usersIndex);
 
 	}
 

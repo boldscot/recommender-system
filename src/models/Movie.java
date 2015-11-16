@@ -38,6 +38,12 @@ public class Movie
 				.addValue(url)                            
 				.toString();
 	}
+	
+	@Override  
+	  public int hashCode()  
+	  {  
+	     return Objects.hashCode(this.title, this.year, this.url);  
+	  } 
 
 	@Override
 	public boolean equals(final Object obj)
