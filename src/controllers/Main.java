@@ -12,7 +12,7 @@ public class Main
 	
 	public static void main(String[] args) throws Exception 
 	{
-		File usersFile = new File("data/users5.dat");
+		File usersFile = new File("users.xml");
 		Serializer serializer = new XMLSerializer(usersFile);
 		
 		recoApi = new RecommenderAPI(serializer);
