@@ -2,18 +2,24 @@ package controllers;
 
 import java.io.File;
 
+import utils.Serializer;
+import utils.XMLSerializer;
 import edu.princeton.cs.introcs.In;
 
 public class Main 
 {
-
+	public static RecommenderAPI recoApi;
+	
 	public static void main(String[] args) throws Exception 
 	{
-		RecommenderAPI recommender = new RecommenderAPI();
-		
 		File usersFile = new File("data/users5.dat");
+		Serializer serializer = new XMLSerializer(usersFile);
+		
+		recoApi = new RecommenderAPI(serializer);
+		
+		//File usersFile = new File("data/users5.dat");
 
-		In inUsers = new In(usersFile);
+		In inUsers = new In("data/users5.dat");
 		//each field is separated(delimited) by a '|'
 		String delims = "[|]";
 		while (!inUsers.isEmpty()) 
@@ -27,7 +33,7 @@ public class Main
 			// output user data to console.
 			if (userTokens.length == 7) 
 			{
-				recommender.createUser(userTokens[1],userTokens[2], 
+				recoApi.createUser(userTokens[1],userTokens[2], 
 						Integer.parseInt(userTokens[3]), userTokens[4], userTokens[5]);
 			}
 			else
@@ -35,9 +41,9 @@ public class Main
 				throw new Exception("Invalid member length: "+userTokens.length);
 			}
 		}
+		recoApi.store();
 		
-		System.out.println(recommender.usersIndex);
-
+		
 	}
 
 }

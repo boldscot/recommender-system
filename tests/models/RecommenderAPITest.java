@@ -19,8 +19,8 @@ public class RecommenderAPITest
 		recommender = new RecommenderAPI();
 		for (User user : users)
 		{
-			recommender.createUser(user.firstName, user.lastName,
-					user.age, user.gender,user.occupation);
+			recommender.createUser(user.getFirstName(), user.getLastName(),
+					user.getAge(), user.getGender(),user.getOccupation());
 		}
 	}
 
@@ -41,15 +41,24 @@ public class RecommenderAPITest
 			recommender.usersIndex.put(counter, thisuser);
 			User thatuser = recommender.usersIndex.get(counter);
 			assertEquals(thisuser, thatuser );
+			counter ++;
 		}
+	}
 
-	}
-	
 	@Test
-	public void deleteUser()
+	public void testRemoveUsers()
 	{
-		
+		long zero = 00;
+
+		assertEquals (users.length, recommender.getUsers().size());
+		recommender.removeUser(zero);
+		assertEquals (users.length-1, recommender.getUsers().size());    
 	}
+
 
 
 }
+
+
+
+

@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.File;
+import java.util.Collection;
+
 import models.Movie;
 import models.Rating;
 import models.User;
@@ -13,6 +16,7 @@ public interface RecommenderInterface
 	void createUser(String firstName, String lastName, int age,
 			String gender,String occupation);
 	User getUser(Long userId);
+	Collection<User> getUsers();
 	void removeUser(Long userId);
 	void addMovie(String title, String year, String  url);
 	void addRating(Long userID, Long movieID, int rating);

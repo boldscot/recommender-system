@@ -15,11 +15,11 @@ public class UserTest
   @Test
   public void testCreate()
   {
-    assertEquals ("stephen", stephen.firstName);
-    assertEquals ("collins", stephen.lastName);
-    assertEquals (28,   stephen.age); 
-    assertEquals ("M",	stephen.gender);
-    assertEquals ("student", stephen.occupation);   
+    assertEquals ("stephen", stephen.getFirstName());
+    assertEquals ("collins", stephen.getLastName());
+    assertEquals (28,   stephen.getAge()); 
+    assertEquals ("M",	stephen.getGender());
+    assertEquals ("student", stephen.getOccupation());   
   }
 
   @Test
@@ -28,7 +28,7 @@ public class UserTest
     Set<Long> ids = new HashSet<>();
     for (User user : users)
     {
-      ids.add(user.userId);
+      ids.add(user.getUserId());
     }
     assertEquals (users.length, ids.size());
   }
@@ -36,7 +36,7 @@ public class UserTest
   @Test
   public void testToString()
   {
-    assertEquals ("User{" + stephen.userId + 
+    assertEquals ("User{" + stephen.getUserId() + 
     		", stephen, collins, 28, M, student}", stephen.toString());
   }
   

@@ -1,14 +1,11 @@
 package controllers;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import utils.Serializer;
 import models.Movie;
 import models.User;
-import edu.princeton.cs.introcs.In;
 
 public class RecommenderAPI implements RecommenderInterface
 {
@@ -22,19 +19,43 @@ public class RecommenderAPI implements RecommenderInterface
 
 	}
 
+	public RecommenderAPI(Serializer serializer)
+	{
+		this.serializer = serializer;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void load() throws Exception
+	{
+		serializer.read();
+		usersIndex       = (Map<Long, User>)     serializer.pop();
+	}
+
+	public void store() throws Exception
+	{
+		serializer.push(usersIndex);
+		serializer.write(); 
+	}
+
 	public void createUser(String firstName, String lastName, 
 			int age, String gender, String occupation) 
 	{
 		User user = new User (firstName, lastName, age, gender, occupation);
-		usersIndex.put(user.userId, user);
+		usersIndex.put(user.getUserId(), user);
 	}
-	
+
 	@Override
 	public User getUser(Long userId) 
 	{
 		return usersIndex.get(userId);
 	}
-	
+
+	@Override
+	public Collection<User> getUsers ()
+	{
+		return usersIndex.values();
+	}
+
 	@Override
 	public void removeUser(Long userId) 
 	{
@@ -67,25 +88,5 @@ public class RecommenderAPI implements RecommenderInterface
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-
-	public RecommenderAPI(Serializer serializer)
-	{
-		this.serializer = serializer;
-	}
-
-	@SuppressWarnings("unchecked")
-	public void load() throws Exception
-	{
-		serializer.read();
-		usersIndex = (Map<Long, User>) serializer.pop();
-	}
-
-	@Override
-	public void store() 
-	{
-		serializer.push(usersIndex);
-	}
-
 }
 
