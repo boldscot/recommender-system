@@ -27,7 +27,7 @@ public class MovieTest
 		Set<Long> ids = new HashSet<>();
 		for (Movie movie : movies)
 		{
-			ids.add(movie.movieId);
+			ids.add(movie.id);
 		}
 		assertEquals (movies.length, ids.size());
 	}
@@ -35,7 +35,7 @@ public class MovieTest
 	@Test
 	public void testToString()
 	{
-		assertEquals ("Movie{" + movie.movieId + 
+		assertEquals ("Movie{" + movie.id + 
 				", saving private ryan, 1998, "
 				+ "http://www.imdb.com/title/tt0120815/}", movie.toString());
 	}

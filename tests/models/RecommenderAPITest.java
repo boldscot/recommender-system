@@ -12,16 +12,21 @@ import controllers.RecommenderAPI;
 public class RecommenderAPITest 
 {
 	private RecommenderAPI recommender;
+	
 
 	@Before
 	public void setUp() 
 	{
 		recommender = new RecommenderAPI();
+		
 		for (User user : users)
 		{
-			recommender.createUser(user.getFirstName(), user.getLastName(),
-					user.getAge(), user.getGender(),user.getOccupation());
+			recommender.createUser(user.firstName, user.lastName,
+					user.age, user.gender, user.occupation);
+			
 		}
+		System.out.println(recommender.getUsersIndex());
+	
 	}
 
 	@After
@@ -31,31 +36,13 @@ public class RecommenderAPITest
 	}
 
 	@Test
-	public void getUser()
+	public void testGetUser()
 	{	
-		long counter = 00;
-
-		for(int i = 0; i < users.length; i++ )
-		{
-			User thisuser = users[i];
-			recommender.usersIndex.put(counter, thisuser);
-			User thatuser = recommender.usersIndex.get(counter);
-			assertEquals(thisuser, thatuser );
-			counter ++;
-		}
+		assertEquals(recommender.getUser((long) 04), users[0] );
+		
 	}
-
-	@Test
-	public void testRemoveUsers()
-	{
-		long zero = 00;
-
-		assertEquals (users.length, recommender.getUsers().size());
-		recommender.removeUser(zero);
-		assertEquals (users.length-1, recommender.getUsers().size());    
-	}
-
-
+	
+	
 
 }
 

@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import models.Movie;
 import models.Rating;
@@ -13,15 +15,16 @@ import models.User;
  */
 public interface RecommenderInterface 
 {
-	void createUser(String firstName, String lastName, int age,
-			String gender,String occupation);
+	User createUser(String firstName, String lastName, 
+			int age, String gender, String occupation);
 	User getUser(Long userId);
 	Collection<User> getUsers();
 	void removeUser(Long userId);
-	void addMovie(String title, String year, String  url);
+	Movie addMovie(String title, String year, String  url);
 	void addRating(Long userID, Long movieID, int rating);
 	Movie getMovie(Long movieID);
-	User getUserRatings(Long userID);
+	Movie getMovieByName(String movieName);
+	List<Rating> getUserRatings(Long userID);
 	//getUserRecommendations(userID)
 	//getTopTenMovies()
 	void load() throws Exception;
