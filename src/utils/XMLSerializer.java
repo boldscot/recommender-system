@@ -25,11 +25,12 @@ public class XMLSerializer implements Serializer
 	{
 		stack.push(o);
 	}
-
+	
 	public Object pop()
 	{
 		return stack.pop(); 
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	public void read() throws Exception
@@ -69,4 +70,5 @@ public class XMLSerializer implements Serializer
 			}
 		}
 	}
+
 }

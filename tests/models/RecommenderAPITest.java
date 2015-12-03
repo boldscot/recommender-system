@@ -25,7 +25,7 @@ public class RecommenderAPITest
 			recommender.createUserFromFile(users[i]);
 			
 		}
-		System.out.println(recommender.getUsersIndex());
+		System.out.println(recommender.getUsers());
 		
 		
 		for (int i = 0; i <movies.length; i++)
@@ -51,7 +51,7 @@ public class RecommenderAPITest
 	@Test
 	public void testGetUsersIndex()
 	{
-		assertEquals(recommender.getUsersIndex().size(), users.length);
+		assertEquals(recommender.getUsers().size(), users.length);
 	}
 	
 	@Test
@@ -66,14 +66,14 @@ public class RecommenderAPITest
 	{
 		User thisUser = recommender.getUser((long) 01);
 		recommender.removeUser(thisUser.id);
-		assertEquals (users.length-1, recommender.getUsersIndex().size() );
+		assertEquals (users.length-1, recommender.getUsers().size() );
 	}
 	
 	@Test
 	public void testDeleteUsers()
 	{
 		recommender.deleteUsers();
-		assertEquals(recommender.getUsersIndex().size(), 0);
+		assertEquals(recommender.getUsers().size(), 0);
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ public class RecommenderAPITest
 	public void createUser()
 	{
 		recommender.createUser("stephen", "collins", 28 ,"M" , "student");
-		assertEquals(users.length+1, recommender.getUsersIndex().size());
+		assertEquals(users.length+1, recommender.getUsers().size());
 	}
 	
 	@Test

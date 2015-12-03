@@ -31,32 +31,20 @@ public class RecommenderAPI implements RecommenderInterface
 	@SuppressWarnings("unchecked")
 	public void load() throws Exception
 	{
-		//serializer.read();
-		//usersIndex       = (Map<Long, User>)     serializer.pop();
+		serializer.read();
+		movies      	 = (Map<Long, Movie>)    serializer.pop();
+		movieNames       = (Map<String, Movie>)  serializer.pop();
+		usersIndex       = (Map<Long, User>)     serializer.pop();  
 	}
 
 	public void store() throws Exception
 	{
-		//serializer.push(usersIndex);
-		//serializer.write(); 
-	}
-	
-	/**
-	 * @return the usersIndex
-	 */
-	public Map<Long, User> getUsersIndex() 
-	{
-		return usersIndex;
+		serializer.push(usersIndex);
+		serializer.push(movieNames);
+		serializer.push(movies);
+		serializer.write(); 
 	}
 
-	/**
-	 * @return the movies
-	 */
-	public Map<Long, Movie> getMovies() 
-	{
-		return movies;
-	}
-	
 	public void createUserFromFile(User user)
 	{
 		usersIndex.put(user.id, user);
@@ -87,7 +75,12 @@ public class RecommenderAPI implements RecommenderInterface
 	{
 		return usersIndex.values();
 	}
-
+	
+	public Collection<Movie> getMovies ()
+	{
+		return movies.values();
+	}
+	
 	@Override
 	public void removeUser(Long userId) 
 	{

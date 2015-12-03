@@ -19,20 +19,37 @@ import edu.princeton.cs.introcs.In;
 
 public class Main 
 {
-	public RecommenderAPI recoApi;
-	public ReadInData data;
+	public static RecommenderAPI recoApi;
+	private ReadInData data;
 
 	public Main() throws Exception 
 	{
-		File usersFile = new File("users.xml");
-		Serializer serializer = new XMLSerializer(usersFile);
+		File dataFile = new File("data.xml");
+		Serializer serializer = new XMLSerializer(dataFile);
 
 		recoApi = new RecommenderAPI(serializer);
-		if (usersFile.isFile())
+		
+		if (dataFile.isFile())
 		{
 			recoApi.load();
 		}
+		else
+		{
+			data = new ReadInData();
+		}
+		
 	}
+	
+	public static void main(String[] args) throws Exception
+	{
+		Main main = new Main();
+		
+		Shell shell = ShellFactory.createConsoleShell
+				("lm", "Welcome to likemovie - ?help for instructions", main);
+		shell.commandLoop();
+
+	}
+
 
 	@Command(description="Add a new User")
 	public void addUser (@Param(name="first name") String firstName, 
@@ -48,24 +65,35 @@ public class Main
 	{
 		recoApi.removeUser(id);
 	}
+	
 	@Command(description="Add a Movie")
 	public void addMovie (@Param(name="title") String title, 
 			@Param(name="year") String year, @Param(name="url") String url)
 	{
 		recoApi.addMovie(title, year, url);
 	}
+	
 	@Command(description="Get all users details")
 	public void getUsers ()
 	{
 		Collection<User> users = recoApi.getUsers();
 		System.out.println(users);
 	}
+	
+	@Command(description="Get all users details")
+	public void getMovies ()
+	{
+		Collection<Movie> movies = recoApi.getMovies();
+		System.out.println(movies);
+	}
+	
 	@Command(description="Add a Rating")
 	public void addRating (@Param(name="user id") Long id, 
-			@Param(name="movie id") String movieTitle, @Param(name="rating") int rating)
+			@Param(name="movie name") String movieTitle, @Param(name="rating") int rating)
 	{
 		recoApi.addRating(id, movieTitle, rating);
 	}
+	
 	@Command(description = "Check rated movies")
 	public void getUserRatings (@Param(name="user id") Long id)
 	{
@@ -79,15 +107,12 @@ public class Main
 		recoApi.deleteUsers();
 
 	}
-
-
-	public static void main(String[] args) throws Exception
+	
+	@Command(description = "store data")
+	public void store () throws Exception
 	{
-		Main main = new Main();
-		Shell shell = ShellFactory.createConsoleShell
-				("lm", "Welcome to likemovie - ?help for instructions", main);
-		shell.commandLoop();
-		main.recoApi.store();
+		recoApi.store();
+
 	}
 
 }

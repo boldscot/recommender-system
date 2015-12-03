@@ -6,6 +6,9 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 
 
 
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,16 @@ public class User
 		this.gender = gender;
 		this.age = age;
 		this.occupation = occupation;
+	}
+	
+	public static Long getCounter() 
+	{
+		return counter;
+	}
+
+	public static void setCounter(Long counter) 
+	{
+		User.counter = counter;
 	}
 
 	public String toString()
@@ -64,4 +77,7 @@ public class User
 			return false;
 		}
 	}
+
+
+
 }

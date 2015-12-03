@@ -4,20 +4,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import controllers.Main;
 import controllers.RecommenderAPI;
 import edu.princeton.cs.introcs.In;
 import models.User;
 
 public class ReadInData 
 {
-	public RecommenderAPI reco;
-	public ArrayList<User> DATusers;
-	//public File thisFile;
 
 	public ReadInData() throws Exception
 	{
-		reco = new RecommenderAPI();
 		loadUsers();
+		loadMovies();
 	}
 
 	public void loadUsers() throws Exception
@@ -38,8 +36,8 @@ public class ReadInData
 			//create users from dat file
 			if (userTokens.length == 7) 
 			{
-				DATusers.add(reco.createUser(userTokens[1], 
-						userTokens[2], Integer.parseInt(userTokens[3]), userTokens[4], userTokens[5]));
+				Main.recoApi.createUser(userTokens[1], 
+						userTokens[2], Integer.parseInt(userTokens[3]), userTokens[4], userTokens[5]);
 			}
 			else
 			{
@@ -47,13 +45,34 @@ public class ReadInData
 			}
 		}
 	}
-
-	/**
-	 * @return the dATusers
-	 */
-	public ArrayList<User> getDATusers() 
+	
+	public void loadMovies() throws Exception
 	{
-		return DATusers;
+		File movieData = new File("data/items5.dat");
+		In inMovies = new In(movieData);
+		
+		//each field is separated(delimited) by a '|'
+		String delims = "[|]";
+		while (!inMovies.isEmpty()) 
+		{
+			// get user and rating from data source
+			String movieDetails = inMovies.readLine();
+
+			// parse user details string
+			String[] movieTokens = movieDetails.split(delims);
+
+			//create users from dat file
+			if (movieTokens.length == 23) 
+			{
+				Main.recoApi.addMovie(movieTokens[1], 
+						movieTokens[2],movieTokens[3]);
+				
+			}
+			else
+			{
+				throw new Exception("Invalid member length: "+movieTokens.length);
+			}
+		}
 	}
 
 }
