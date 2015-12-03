@@ -62,15 +62,22 @@ public class Main
 	}
 	@Command(description="Add a Rating")
 	public void addRating (@Param(name="user id") Long id, 
-			@Param(name="movie id") Long movieId, @Param(name="rating") int rating)
+			@Param(name="movie id") String movieTitle, @Param(name="rating") int rating)
 	{
-		recoApi.addRating(id, movieId, rating);
+		recoApi.addRating(id, movieTitle, rating);
 	}
 	@Command(description = "Check rated movies")
 	public void getUserRatings (@Param(name="user id") Long id)
 	{
 		Collection<Rating> ratings = recoApi.getUserRatings(id);
 		System.out.println(ratings);
+	}
+	
+	@Command(description = "Delete users")
+	public void deleteUsers ()
+	{
+		recoApi.deleteUsers();
+
 	}
 
 

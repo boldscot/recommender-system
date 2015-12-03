@@ -5,6 +5,7 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import com.google.common.base.Objects;
 
 public class User
 {
-	static Long counter = 0l;
+	static Long counter = 01l;
 	public Long id;
 	public String firstName;
 	public String lastName;
@@ -42,7 +43,7 @@ public class User
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(this.lastName, this.firstName, this.gender, this.age);
+		return Objects.hashCode(this.firstName, this.lastName, this.age, this.gender, this.occupation);
 	}
 
 	@Override

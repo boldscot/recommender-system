@@ -5,9 +5,9 @@ import com.google.common.base.Objects;
 
 public class Movie
 {
-	static Long counter = 0l;
+	static Long movieCounter = 0l;
 
-	public Long id;
+	public Long movieId;
 
 	public String title;
 	public String year;
@@ -16,7 +16,7 @@ public class Movie
 	
 	public Movie(String title, String year, String url)
 	{
-		this.id = counter++;
+		this.movieId = movieCounter ++;
 		this.title = title;
 		this.year = year;
 		this.url = url;
@@ -31,7 +31,7 @@ public class Movie
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(this.id, this.title, this.year, this.url);
+		return Objects.hashCode(this.movieId, this.title, this.year, this.url);
 	}
 
 	@Override

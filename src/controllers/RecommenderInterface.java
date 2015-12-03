@@ -1,10 +1,7 @@
 package controllers;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
 import models.Movie;
 import models.Rating;
 import models.User;
@@ -21,7 +18,7 @@ public interface RecommenderInterface
 	Collection<User> getUsers();
 	void removeUser(Long userId);
 	Movie addMovie(String title, String year, String  url);
-	void addRating(Long userID, Long movieID, int rating);
+	void addRating(Long userID, String movieTitle, int rating);
 	Movie getMovie(Long movieID);
 	Movie getMovieByName(String movieName);
 	List<Rating> getUserRatings(Long userID);

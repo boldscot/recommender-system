@@ -31,14 +31,14 @@ public class RecommenderAPI implements RecommenderInterface
 	@SuppressWarnings("unchecked")
 	public void load() throws Exception
 	{
-		serializer.read();
-		usersIndex       = (Map<Long, User>)     serializer.pop();
+		//serializer.read();
+		//usersIndex       = (Map<Long, User>)     serializer.pop();
 	}
 
 	public void store() throws Exception
 	{
-		serializer.push(usersIndex);
-		serializer.write(); 
+		//serializer.push(usersIndex);
+		//serializer.write(); 
 	}
 	
 	/**
@@ -56,18 +56,30 @@ public class RecommenderAPI implements RecommenderInterface
 	{
 		return movies;
 	}
-
+	
+	public void createUserFromFile(User user)
+	{
+		usersIndex.put(user.id, user);
+	}
+	
+	@Override
 	public User createUser(String firstName, String lastName, int age , String gender, String occupation) 
 	{
 		User user = new User (firstName, lastName, age, gender, occupation);
 		usersIndex.put(user.id, user);
 		return user;
+		
 	}
 
 	@Override
 	public User getUser(Long userId) 
 	{
 		return usersIndex.get(userId);
+	}
+	
+	public void deleteUsers() 
+	{
+		usersIndex.clear();
 	}
 
 	@Override
@@ -86,16 +98,22 @@ public class RecommenderAPI implements RecommenderInterface
 	public Movie addMovie(String title, String year, String url) 
 	{
 		Movie movie = new Movie (title, year, url);
-		movies.put(movie.id, movie);
+		movies.put(movie.movieId, movie);
 		movieNames.put(movie.title, movie);
 		return movie;
 	}
+	
+	public void addMovieFromFile(Movie movie)
+	{
+		movies.put(movie.movieId, movie);
+		movieNames.put(movie.title, movie);
+	}
 
 	@Override
-	public void addRating(Long userID, Long movieId, int rating) 
+	public void addRating(Long userID, String movieTilte, int rating) 
 	{
 		User userRatingMovie = usersIndex.get(userID);
-		Rating ratingForMovie = new Rating(rating, movieId);
+		Rating ratingForMovie = new Rating(rating, movieTilte);
 		userRatingMovie.moviesRated.add(ratingForMovie);  			//add the rating for a movie to the
 	}																//users Arraylist of rated movies.
 
@@ -118,6 +136,7 @@ public class RecommenderAPI implements RecommenderInterface
 		User usersRatings = usersIndex.get(userID);
 		return usersRatings.moviesRated;
 	}
+
 
 }
 

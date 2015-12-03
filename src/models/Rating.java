@@ -7,16 +7,16 @@ import com.google.common.base.Objects;
 public class Rating 
 {
 	public int rating;
-	public Long movieId;
+	public String movieTitle;
 	
 	public Rating()
 	{
 	}
 
-	public Rating(int rating, Long movieId)
+	public Rating(int rating, String movieTitle)
 	{
 		this.rating = rating;
-		this.movieId = movieId;
+		this.movieTitle = movieTitle;
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class Rating
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(this.rating);
+		return Objects.hashCode(this.rating, this.movieTitle);
 	}
 
 	@Override
@@ -37,7 +37,8 @@ public class Rating
 		if (obj instanceof Movie)
 		{
 			final Rating other = (Rating) obj;
-			return Objects.equal(rating, other.rating);
+			return Objects.equal(rating, other.rating)
+					&& Objects.equal(movieTitle, other.movieTitle);
 					
 		}
 		else
