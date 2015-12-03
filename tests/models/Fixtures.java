@@ -20,7 +20,9 @@ public class Fixtures
 	
 	public static Rating [] ratings = 
 		{
-		
+			new Rating("unforgiven", 10),
+			new Rating("skyfall",8),
+			new Rating("hitman", 5)
 		};
 
 }

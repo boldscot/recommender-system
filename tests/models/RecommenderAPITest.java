@@ -2,6 +2,7 @@ package models;
 
 import static models.Fixtures.users;
 import static models.Fixtures.movies;
+import static models.Fixtures.ratings;
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -22,17 +23,20 @@ public class RecommenderAPITest
 		for (int i = 0; i <users.length; i++)
 		{
 
-			recommender.createUserFromFile(users[i]);
+			recommender.createUserFromFixture(users[i]);
 			
 		}
-		System.out.println(recommender.getUsers());
-		
 		
 		for (int i = 0; i <movies.length; i++)
 		{
-			recommender.addMovieFromFile(movies[i]);
+			recommender.addMovieFromFixture(movies[i]);
 		}
-		System.out.println(recommender.getMovies());
+		
+		for (int i = 0; i < ratings.length; i++)
+		{
+			recommender.addRatingFromFixture((long)1, ratings[i]);
+		}
+		
 	}
 
 	@After
@@ -97,6 +101,22 @@ public class RecommenderAPITest
 		recommender.addMovie("thisMovie", "2015", "www.movie.com");
 		assertEquals(movies.length+1, recommender.getMovies().size());
 	}
+	
+	@Test
+	public void addRating()
+	{
+		recommender.addRating((long) 2, "spectre", 8);
+		assertEquals(1 , recommender.getUser((long) 2).moviesRated.size());
+	}
+	
+	@Test
+	public void getUsersRatings()
+	{
+		User newUser = recommender.createUser("steve", "collins", 28, "M", "student");
+		recommender.addRating(newUser.id, "spectre", 8);
+		assertEquals(recommender.getUser((long) 2).moviesRated, newUser.moviesRated );
+	}
+	
 	
 	
 

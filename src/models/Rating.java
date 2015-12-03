@@ -13,7 +13,7 @@ public class Rating
 	{
 	}
 
-	public Rating(int rating, String movieTitle)
+	public Rating(String movieTitle, int rating)
 	{
 		this.rating = rating;
 		this.movieTitle = movieTitle;

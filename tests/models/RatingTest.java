@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class RatingTest 
 {
-	Rating rating = new Rating(5, "skyfall");
+	Rating rating = new Rating("skyfall", 5);
 	
 	@Test
 	public void testCreate() 
@@ -22,8 +22,8 @@ public class RatingTest
 	@Test
 	  public void testEquals()
 	  {
-	    Rating rating2 = new Rating(5, "skyfall"); 
-	    Rating spectreRating  = new Rating (4, "spectre"); 
+	    Rating rating2 = new Rating("skyfall", 5); 
+	    Rating spectreRating  = new Rating ("spectre", 4); 
 
 	    assertEquals(rating, rating);
 	    assertEquals(rating, rating2);

@@ -45,7 +45,7 @@ public class RecommenderAPI implements RecommenderInterface
 		serializer.write(); 
 	}
 
-	public void createUserFromFile(User user)
+	public void createUserFromFixture(User user)
 	{
 		usersIndex.put(user.id, user);
 	}
@@ -96,19 +96,27 @@ public class RecommenderAPI implements RecommenderInterface
 		return movie;
 	}
 	
-	public void addMovieFromFile(Movie movie)
+	public void addMovieFromFixture(Movie movie)
 	{
 		movies.put(movie.movieId, movie);
 		movieNames.put(movie.title, movie);
 	}
-
+	
+	
+	//add the rating for a movie to the users Arraylist of rated movies.
 	@Override
 	public void addRating(Long userID, String movieTilte, int rating) 
 	{
 		User userRatingMovie = usersIndex.get(userID);
-		Rating ratingForMovie = new Rating(rating, movieTilte);
-		userRatingMovie.moviesRated.add(ratingForMovie);  			//add the rating for a movie to the
-	}																//users Arraylist of rated movies.
+		Rating ratingForMovie = new Rating(movieTilte, rating);
+		userRatingMovie.moviesRated.add(ratingForMovie);  
+	}
+	
+	public void addRatingFromFixture(Long userID, Rating rating) 
+	{
+		User userRatingMovie = usersIndex.get(userID);
+		userRatingMovie.moviesRated.add(rating);  
+	}
 
 	@Override
 	public Movie getMovie(Long movieId) 
