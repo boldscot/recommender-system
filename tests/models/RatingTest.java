@@ -4,30 +4,32 @@
 package models;
 
 import static org.junit.Assert.*;
+import static models.Fixtures.ratings;
+import static models.Fixtures.movies;
 
 import org.junit.Test;
 
 
 public class RatingTest 
 {
-	Rating rating = new Rating("skyfall", 5);
+	Rating ratedMovie = new Rating(movies[0].movieId, 9);
 	
 	@Test
-	public void testCreate() 
+	public void testCreate()
 	{
-		assertEquals(5, rating.rating);
-		assertEquals("skyfall", rating.movieTitle);
+		assertEquals(9, ratedMovie.rating);
+		assertEquals(movies[0].movieId, ratedMovie.movieId);
 	}
 	
 	@Test
 	  public void testEquals()
 	  {
-	    Rating rating2 = new Rating("skyfall", 5); 
-	    Rating spectreRating  = new Rating ("spectre", 4); 
+	    Rating rating2 = new Rating(movies[0].movieId, 9); 
+	    Rating spectreRating  = new Rating (ratings[0].movieId, 4); 
 
-	    assertEquals(rating, rating);
-	    assertEquals(rating, rating2);
-	    assertNotEquals(rating, spectreRating);
+	    assertEquals(ratedMovie, ratedMovie);
+	    assertEquals(ratedMovie, rating2);
+	    assertNotEquals(ratedMovie, spectreRating);
 	  }
 
 }

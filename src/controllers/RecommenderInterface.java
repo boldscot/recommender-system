@@ -18,7 +18,7 @@ public interface RecommenderInterface
 	Collection<User> getUsers();
 	void removeUser(Long userId);
 	Movie addMovie(String title, String year, String  url);
-	void addRating(Long userID, String movieTitle, int rating);
+	void addRating(Long userID, Long movieId, int rating);
 	Movie getMovie(Long movieID);
 	Movie getMovieByName(String movieName);
 	List<Rating> getUserRatings(Long userID);

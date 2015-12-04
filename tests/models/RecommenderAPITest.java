@@ -105,7 +105,7 @@ public class RecommenderAPITest
 	@Test
 	public void addRating()
 	{
-		recommender.addRating((long) 2, "spectre", 8);
+		recommender.addRating((long) 2, movies[0].movieId, 8);
 		assertEquals(1 , recommender.getUser((long) 2).moviesRated.size());
 	}
 	
@@ -113,8 +113,8 @@ public class RecommenderAPITest
 	public void getUsersRatings()
 	{
 		User newUser = recommender.createUser("steve", "collins", 28, "M", "student");
-		recommender.addRating(newUser.id, "spectre", 8);
-		assertEquals(recommender.getUser((long) 2).moviesRated, newUser.moviesRated );
+		recommender.addRating(newUser.id, movies[0].movieId, 8);
+		assertEquals(recommender.getUserRatings((long) 2), recommender.getUserRatings(newUser.id));
 	}
 	
 	

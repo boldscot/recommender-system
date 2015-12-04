@@ -89,9 +89,9 @@ public class Main
 	
 	@Command(description="Add a Rating")
 	public void addRating (@Param(name="user id") Long id, 
-			@Param(name="movie name") String movieTitle, @Param(name="rating") int rating)
+			@Param(name="movie name") Long movieId, @Param(name="rating") int rating)
 	{
-		recoApi.addRating(id, movieTitle, rating);
+		recoApi.addRating(id, movieId, rating);
 	}
 	
 	@Command(description = "Check rated movies")

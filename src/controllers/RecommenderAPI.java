@@ -32,16 +32,21 @@ public class RecommenderAPI implements RecommenderInterface
 	public void load() throws Exception
 	{
 		serializer.read();
+
 		movies      	 = (Map<Long, Movie>)    serializer.pop();
 		movieNames       = (Map<String, Movie>)  serializer.pop();
 		usersIndex       = (Map<Long, User>)     serializer.pop();  
+		Long userCounter = (Long) serializer.pop(); 
+		User.setCounter(userCounter);
 	}
 
 	public void store() throws Exception
 	{
+		serializer.push(User.getCounter());
 		serializer.push(usersIndex);
 		serializer.push(movieNames);
 		serializer.push(movies);
+		
 		serializer.write(); 
 	}
 
@@ -105,10 +110,10 @@ public class RecommenderAPI implements RecommenderInterface
 	
 	//add the rating for a movie to the users Arraylist of rated movies.
 	@Override
-	public void addRating(Long userID, String movieTilte, int rating) 
+	public void addRating(Long userID, Long movieId, int rating) 
 	{
 		User userRatingMovie = usersIndex.get(userID);
-		Rating ratingForMovie = new Rating(movieTilte, rating);
+		Rating ratingForMovie = new Rating(movieId, rating);
 		userRatingMovie.moviesRated.add(ratingForMovie);  
 	}
 	
