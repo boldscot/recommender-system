@@ -20,6 +20,16 @@ public class MovieTest
 		assertEquals("1998", movie.year);
 		assertEquals("http://www.imdb.com/title/tt0120815/", movie.url);
 	}
+	
+	@Test 
+	public void testMovieScore()
+	{
+		assertEquals(movie.totalMovieScore, 0);
+		movie.setTotalMovieScore(10);
+		assertEquals(movie.totalMovieScore, 10);
+		movie.setTotalMovieScore(10);
+		assertEquals(movie.totalMovieScore, 20);
+	}
 
 	@Test
 	public void testIds()

@@ -89,7 +89,7 @@ public class Main
 	
 	@Command(description="Add a Rating")
 	public void addRating (@Param(name="user id") Long id, 
-			@Param(name="movie name") Long movieId, @Param(name="rating") int rating)
+			@Param(name="movie id") Long movieId, @Param(name="rating") int rating)
 	{
 		recoApi.addRating(id, movieId, rating);
 	}
@@ -105,6 +105,14 @@ public class Main
 	public void deleteUsers ()
 	{
 		recoApi.deleteUsers();
+
+	}
+	
+	@Command(description = "get the top ten movies")
+	public void getTopTenMovies () 
+	{
+		Collection<Movie> topTen = recoApi.getTopTenMovies();
+		System.out.println(topTen);
 
 	}
 	

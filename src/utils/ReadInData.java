@@ -16,6 +16,7 @@ public class ReadInData
 	{
 		loadUsers();
 		loadMovies();
+		loadRatings();
 	}
 
 	public void loadUsers() throws Exception
@@ -71,6 +72,35 @@ public class ReadInData
 			else
 			{
 				throw new Exception("Invalid member length: "+movieTokens.length);
+			}
+		}
+	}
+	
+	public void loadRatings() throws Exception
+	{
+		File ratingData = new File("data/ratings5.dat");
+		In inRatings = new In(ratingData);
+		
+		//each field is separated(delimited) by a '|'
+		String delims = "[|]";
+		while (!inRatings.isEmpty()) 
+		{
+			// get user and rating from data source
+			String ratingDetails = inRatings.readLine();
+
+			// parse user details string
+			String[] ratingTokens = ratingDetails.split(delims);
+
+			//create users from dat file
+			if (ratingTokens.length == 4) 
+			{
+				Main.recoApi.addRating(Long.parseLong(ratingTokens[0]), 
+						Long.parseLong(ratingTokens[1]), Integer.parseInt(ratingTokens[2]) );
+				
+			}
+			else
+			{
+				throw new Exception("Invalid member length: "+ratingTokens.length);
 			}
 		}
 	}

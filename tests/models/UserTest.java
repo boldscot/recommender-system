@@ -36,8 +36,15 @@ public class UserTest
 	@Test
 	public void testToString()
 	{
-		assertEquals ("User{" + stephen.id + 
-				", stephen, collins, M, 28, student}", stephen.toString());
+		assertEquals ("User [id:" + stephen.id + ", "
+				+ "firstName:" + stephen.firstName + ", "
+				+ "lastName:" + stephen.lastName + ","
+				+ " gender:" + stephen.gender
+				+ ", age:" + stephen.age
+				+ ", occupation:" + stephen.occupation
+				+ ", moviesRated:" + stephen.moviesRated
+				+ "]"
+				, stephen.toString());
 	}
 
 	@Test

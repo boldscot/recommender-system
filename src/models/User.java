@@ -9,6 +9,7 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import com.google.common.base.Objects;
 
 public class User
 {
-	static Long counter = 01l;
+	public static Long counter = 01l;
 	public Long id;
 	public String firstName;
 	public String lastName;
@@ -48,6 +49,7 @@ public class User
 		User.counter = counter;
 	}
 
+	@Override
 	public String toString()
 	{
 		return new ToJsonString(getClass(), this).toString();
