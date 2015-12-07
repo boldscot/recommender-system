@@ -21,7 +21,7 @@ public class ReadInData
 
 	public void loadUsers() throws Exception
 	{
-		File userData = new File("data/users5.dat");
+		File userData = new File("data/users.dat");
 		In inUsers = new In(userData);
 		
 		//each field is separated(delimited) by a '|'
@@ -49,7 +49,7 @@ public class ReadInData
 	
 	public void loadMovies() throws Exception
 	{
-		File movieData = new File("data/items5.dat");
+		File movieData = new File("data/items.dat");
 		In inMovies = new In(movieData);
 		
 		//each field is separated(delimited) by a '|'
@@ -78,7 +78,7 @@ public class ReadInData
 	
 	public void loadRatings() throws Exception
 	{
-		File ratingData = new File("data/ratings5.dat");
+		File ratingData = new File("data/ratings.dat");
 		In inRatings = new In(ratingData);
 		
 		//each field is separated(delimited) by a '|'

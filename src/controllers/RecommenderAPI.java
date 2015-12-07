@@ -187,7 +187,7 @@ public class RecommenderAPI implements RecommenderInterface
 		{
 			User otherUserRatings = getUser(i);
 
-			if ( getSimilarity(userID, i)  >= 100)
+			if ( getSimilarity(userID, i)  >= 500)
 			{
 				for (Long ratedMovie: otherUserRatings.ratedMovieIds )
 				{
@@ -200,7 +200,8 @@ public class RecommenderAPI implements RecommenderInterface
 				}	
 			}
 		}
-		return recommendedMovies;
+		Collections.sort(recommendedMovies);
+		return recommendedMovies.subList(0, 15);
 	}
 
 	//Get the similarity between 2 users, returns an integer value of the sum of the
