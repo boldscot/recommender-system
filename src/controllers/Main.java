@@ -66,6 +66,20 @@ public class Main
 		recoApi.removeUser(id);
 	}
 	
+	@Command(description="Return a Movie")
+	public void getMovie (@Param(name="Movie Id") Long id)
+	{
+		
+		System.out.println(recoApi.getMovie(id));
+
+	}
+	
+	@Command(description="Delete a Movie")
+	public void removeMovie (@Param(name="Movie Id") Long id)
+	{
+		recoApi.removeMovie(id);
+	}
+	
 	@Command(description="Add a Movie")
 	public void addMovie (@Param(name="title") String title, 
 			@Param(name="year") String year, @Param(name="url") String url)
@@ -80,7 +94,7 @@ public class Main
 		System.out.println(users);
 	}
 	
-	@Command(description="Get all users details")
+	@Command(description="Get all Movie details")
 	public void getMovies ()
 	{
 		Collection<Movie> movies = recoApi.getMovies();
@@ -108,6 +122,13 @@ public class Main
 
 	}
 	
+	@Command(description = "Delete movies")
+	public void deleteMovies ()
+	{
+		recoApi.deleteMovies();
+
+	}
+	
 	@Command(description = "Get similarity between users")
 	public void getSimilarity (@Param(name="user id") Long id, @Param (name ="other user id") Long otherId)
 	{
@@ -115,7 +136,7 @@ public class Main
 
 	}
 	
-	@Command(description = "Check rated movies")
+	@Command(description = "Get recommended movies")
 	public void getRecommendedMovies (@Param(name="user id") Long id)
 	{
 		Collection<Movie> recommendedMovies = recoApi.getUserRecommendations(id);

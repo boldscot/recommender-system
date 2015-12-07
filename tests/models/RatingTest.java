@@ -22,6 +22,15 @@ public class RatingTest
 	}
 	
 	@Test
+	public void testToString()
+	{
+		assertEquals(" " + "\n" 
+				+ "Movie Id:" + ratedMovie.movieId + "\n"
+				+ "rating :" + ratedMovie.rating  + "\n"
+				+" " + "\n", ratedMovie.toString() );
+	}
+	
+	@Test
 	  public void testEquals()
 	  {
 	    Rating rating2 = new Rating(movies[0].movieId, 9); 

@@ -24,6 +24,7 @@ public class Movie implements Comparable<Movie>
 		this.year = year;
 		this.url = url;
 		this.totalMovieScore = 0;
+		
 	}
 	
 	public static Long getCounter() 
@@ -60,7 +61,13 @@ public class Movie implements Comparable<Movie>
 	@Override
 	public String toString()
 	{
-		return new ToJsonString(getClass(), this).toString();
+		return " " + "\n" +
+				"Movie title :" + title+ "\n"
+				+ "release year : :" + year + "\n"
+				+"link :" + url + "\n"
+				+"movie Id: " + movieId + "\n"
+				+"movie score: " + totalMovieScore + "\n"
+				+ " " + "\n ";
 	}
 
 	@Override
@@ -77,7 +84,8 @@ public class Movie implements Comparable<Movie>
 			final Movie other = (Movie) obj;
 			return Objects.equal(title, other.title)
 					&& Objects.equal(year, other.year)
-					&& Objects.equal(url, other.url);
+					&& Objects.equal(url, other.url)
+					&& Objects.equal(totalMovieScore, other.totalMovieScore);
 		}
 		else
 		{

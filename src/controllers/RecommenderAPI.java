@@ -116,10 +116,26 @@ public class RecommenderAPI implements RecommenderInterface
 
 	@Override
 	public Movie getMovie(Long movieId) 
-	{
+	{	
 		return movies.get(movieId);
 	}
-
+	
+	public void removeMovie(Long movieId) 
+	{
+		
+		Movie mov = getMovie(movieId);
+		topTen.remove(mov);
+		Collections.sort(topTen);
+		
+		movies.remove(movieId);
+		movieNames.remove(movieId);
+	}
+	
+	public void deleteMovies() 
+	{
+		movies.clear();
+		
+	}
 
 	@Override
 	public Movie getMovieByName(String movieName) 
@@ -160,12 +176,6 @@ public class RecommenderAPI implements RecommenderInterface
 		
 	}
 
-	//add a rating from test data fixtures
-	public void addRatingFromFixture(Long userID, Rating rating) 
-	{
-		User userRatingMovie = usersIndex.get(userID);
-		userRatingMovie.moviesRated.add(rating);  
-	}
 
 	//get a list of movies that a user has rated
 	@Override
@@ -175,7 +185,7 @@ public class RecommenderAPI implements RecommenderInterface
 		return usersRatings.moviesRated;
 	}
 
-	//compare a users similarity with each other user and if it is higher than 500
+	//compare a users similarity with each other user and if it is higher than 100
 	//add movies that the user hasn't rated yet but the other users have to an arraylist, sort the arraylist and 
 	//then return a sublist of the top 15 movies in the arraylist if the arraylist size is >= 15, 
 	//return the the arraylist as normal if it is'nt; 
@@ -183,13 +193,14 @@ public class RecommenderAPI implements RecommenderInterface
 	public List<Movie> getUserRecommendations(Long userID) 
 	{
 		ArrayList<Movie> recommendedMovies = new ArrayList<Movie>();
+		
 		User thisUser = getUser(userID);
 
 		for (Long i = 01l; i < usersIndex.size(); i++)
 		{
 			User otherUserRatings = getUser(i);
 
-			if ( getSimilarity(userID, i)  >= 500)
+			if ( getSimilarity(userID, i)  >= 100)
 			{
 				for (Long ratedMovie: otherUserRatings.ratedMovieIds )
 				{
@@ -205,7 +216,7 @@ public class RecommenderAPI implements RecommenderInterface
 		
 		Collections.sort(recommendedMovies);
 		
-		if (!(recommendedMovies.size() >= 15))
+		if (recommendedMovies.size() < 15)
 		{
 			return recommendedMovies;
 		}
@@ -232,6 +243,7 @@ public class RecommenderAPI implements RecommenderInterface
 						if (rating.movieId == rats.movieId)
 						{
 							similarity+=rating.rating*rats.rating;
+							break;
 						}
 					}
 				}
@@ -240,9 +252,6 @@ public class RecommenderAPI implements RecommenderInterface
 
 		return similarity;
 	}
-
-
-
 
 }
 

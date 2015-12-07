@@ -39,7 +39,7 @@ public class User
 		this.age = age;
 		this.occupation = occupation;
 	}
-	
+
 	public static Long getCounter() 
 	{
 		return counter;
@@ -53,13 +53,22 @@ public class User
 	@Override
 	public String toString()
 	{
-		return new ToJsonString(getClass(), this).toString();
+		return  " " + "\n" +
+				"first Name :" + firstName+ "\n"
+				+ "last Name :" + lastName + "\n"
+				+"age :" + age + "\n"
+				+"gender :" + gender + "\n"
+				+ "occupation :" + occupation + "\n"
+				+ "counter :" + counter + "\n"
+				+ "user id :" + id
+				+ " " + "\n ";
+
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(this.firstName, this.lastName, this.age, this.gender, this.occupation);
+		return Objects.hashCode(this.firstName, this.lastName, this.age, this.gender, this.occupation, this.moviesRated, this.ratedMovieIds);
 	}
 
 	@Override
@@ -73,7 +82,8 @@ public class User
 					&& Objects.equal(gender, other.gender)
 					&& Objects.equal(age, other.age)
 					&& Objects.equal(occupation, other.occupation)
-					&& Objects.equal(moviesRated, other.moviesRated);
+					&& Objects.equal(moviesRated, other.moviesRated)
+					&& Objects.equal(ratedMovieIds, other.ratedMovieIds);
 		}
 		else
 		{
