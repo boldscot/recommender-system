@@ -1,9 +1,11 @@
-package models;
+package controllers;
 
 import static models.Fixtures.users;
 import static models.Fixtures.movies;
 import static models.Fixtures.ratings;
 import static org.junit.Assert.*;
+import models.Movie;
+import models.User;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,10 +34,13 @@ public class RecommenderAPITest
 			recommender.addMovieFromFixture(movies[i]);
 		}
 		
-		for (int i = 0; i < ratings.length; i++)
-		{
-			recommender.addRatingFromFixture((long)1, ratings[i]);
-		}
+		recommender.addRating(users[0].id, movies[0].movieId, 10);
+		recommender.addRating(users[0].id, movies[1].movieId, 8);
+		recommender.addRating(users[0].id, movies[2].movieId, 10);
+		
+		recommender.addRating(users[1].id, movies[0].movieId, 10);
+		recommender.addRating(users[1].id, movies[1].movieId, 8);
+		recommender.addRating(users[1].id, movies[2].movieId, 10);
 		
 	}
 
@@ -128,17 +133,17 @@ public class RecommenderAPITest
 		Movie movie3 = recommender.addMovie("Rocky", "1985", "www.rocky.com");
 		Movie movie4 = recommender.addMovie("The Good The Bad and The Ugly", "1966", "www.TGTBATU.com");
 		
-		recommender.addRating(newUser.id, movie1.movieId, 5);
-		recommender.addRating(newUser.id, movie2.movieId, 5);
+		recommender.addRating(newUser.id, movie1.movieId, 10);
+		recommender.addRating(newUser.id, movie2.movieId, 20);
 		recommender.addRating(newUser.id, movie3.movieId, 8);
 		recommender.addRating(newUser.id, movie4.movieId, 10);
 		
 		recommender.addRating(otherNewUser.id, movie1.movieId, 10);
-		recommender.addRating(otherNewUser.id, movie2.movieId, 10);
+		recommender.addRating(otherNewUser.id, movie2.movieId, 20);
 		
 		assertEquals(recommender.getUserRatings(otherNewUser.id).size(), 2);
 		assertEquals(recommender.getUserRatings(newUser.id).size(), 4);
-		assertEquals(recommender.getSimilarity(newUser.id, otherNewUser.id), 100);
+		assertEquals(recommender.getSimilarity(newUser.id, otherNewUser.id), 500);
 		assertNotEquals(movie1.movieId, movie4.movieId);
 		assertEquals(recommender.getUserRecommendations(otherNewUser.id).size(), 2);
 		

@@ -175,8 +175,10 @@ public class RecommenderAPI implements RecommenderInterface
 		return usersRatings.moviesRated;
 	}
 
-	//compare a users similarity with each other user and if it is higher than 100
-	//add movies that the user hasn't rated yet but the other users have to an arraylist then return the arraylist; 
+	//compare a users similarity with each other user and if it is higher than 500
+	//add movies that the user hasn't rated yet but the other users have to an arraylist, sort the arraylist and 
+	//then return a sublist of the top 15 movies in the arraylist if the arraylist size is >= 15, 
+	//return the the arraylist as normal if it is'nt; 
 	@Override
 	public List<Movie> getUserRecommendations(Long userID) 
 	{
@@ -200,8 +202,15 @@ public class RecommenderAPI implements RecommenderInterface
 				}	
 			}
 		}
+		
 		Collections.sort(recommendedMovies);
-		return recommendedMovies.subList(0, 15);
+		
+		if (!(recommendedMovies.size() >= 15))
+		{
+			return recommendedMovies;
+		}
+		else
+			return recommendedMovies.subList(0, 14);
 	}
 
 	//Get the similarity between 2 users, returns an integer value of the sum of the
@@ -223,9 +232,8 @@ public class RecommenderAPI implements RecommenderInterface
 						if (rating.movieId == rats.movieId)
 						{
 							similarity+=rating.rating*rats.rating;
-						}	
+						}
 					}
-
 				}
 			}
 		}

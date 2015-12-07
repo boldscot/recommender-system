@@ -111,7 +111,7 @@ public class Main
 	@Command(description = "Get similarity between users")
 	public void getSimilarity (@Param(name="user id") Long id, @Param (name ="other user id") Long otherId)
 	{
-		System.out.println(recoApi.getSimilarity(id, otherId) );
+		System.out.println(recoApi.getSimilarity(id, otherId));
 
 	}
 	
