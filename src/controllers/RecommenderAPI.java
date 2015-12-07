@@ -30,12 +30,12 @@ public class RecommenderAPI implements RecommenderInterface
 	{
 		this.serializer = serializer;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void load() throws Exception
 	{
 		serializer.read();
-		
+
 		movies      	 = (Map<Long, Movie>)    serializer.pop();
 		movieNames       = (Map<String, Movie>)  serializer.pop();
 		usersIndex       = (Map<Long, User>)     serializer.pop();  
@@ -54,7 +54,7 @@ public class RecommenderAPI implements RecommenderInterface
 		serializer.push(usersIndex);
 		serializer.push(movieNames);
 		serializer.push(movies);
-		
+
 		serializer.write(); 
 	}
 
@@ -62,14 +62,14 @@ public class RecommenderAPI implements RecommenderInterface
 	{
 		usersIndex.put(user.id, user);
 	}
-	
+
 	@Override
 	public User createUser(String firstName, String lastName, int age , String gender, String occupation) 
 	{
 		User user = new User (firstName, lastName, age, gender, occupation);
 		usersIndex.put(user.id, user);
 		return user;
-		
+
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class RecommenderAPI implements RecommenderInterface
 	{
 		return usersIndex.get(userId);
 	}
-	
+
 	public void deleteUsers() 
 	{
 		usersIndex.clear();
@@ -88,7 +88,7 @@ public class RecommenderAPI implements RecommenderInterface
 	{
 		return usersIndex.values();
 	}
-	
+
 	@Override
 	public void removeUser(Long userId) 
 	{
@@ -104,66 +104,134 @@ public class RecommenderAPI implements RecommenderInterface
 		topTen.add(movie);
 		return movie;
 	}
-	
+
+	//add a movie from test data fixtures
 	public void addMovieFromFixture(Movie movie)
 	{
 		movies.put(movie.movieId, movie);
 		movieNames.put(movie.title, movie);
 		topTen.add(movie);
 	} 
-	
+
 
 	@Override
 	public Movie getMovie(Long movieId) 
 	{
 		return movies.get(movieId);
 	}
-	
+
 
 	@Override
 	public Movie getMovieByName(String movieName) 
 	{
 		return movieNames.get(movieName);
 	}
-	
-	
+
+
 	public Collection<Movie> getMovies ()
 	{
 		return movies.values();
 	}
-	
 
+
+	//this method sorts the topTen arraylist then returns the top 10 movies.
 	@Override
 	public List<Movie> getTopTenMovies() 
 	{
 		Collections.sort(topTen);
 		return topTen.subList(0, 10);
 	}
-	
-	
-	//add the rating for a movie to the users Arraylist of rated movies.
+
+
+	//add the rating for a movie to the users Arraylist of rated movies
+	//and add the rating value to the movie being rated totalMovieScore. 
 	@Override
 	public void addRating(Long userID, Long movieId, int rating) 
 	{
 		User userRatingMovie = usersIndex.get(userID);
 		Rating ratingForMovie = new Rating(movieId, rating);
-		getMovie(movieId).setTotalMovieScore(rating);
-		userRatingMovie.moviesRated.add(ratingForMovie);  
+		
+		if ( !userRatingMovie.ratedMovieIds.contains(movieId))
+		{
+			userRatingMovie.moviesRated.add(ratingForMovie); 
+			getMovie(movieId).setTotalMovieScore(rating);
+			userRatingMovie.ratedMovieIds.add(movieId);
+		}
+		
 	}
-	
+
+	//add a rating from test data fixtures
 	public void addRatingFromFixture(Long userID, Rating rating) 
 	{
 		User userRatingMovie = usersIndex.get(userID);
 		userRatingMovie.moviesRated.add(rating);  
 	}
 
-
+	//get a list of movies that a user has rated
 	@Override
 	public List<Rating> getUserRatings(Long userID)
 	{
 		User usersRatings = usersIndex.get(userID);
 		return usersRatings.moviesRated;
 	}
+
+	//compare a users similarity with each other user and if it is higher than 100
+	//add movies that the user hasn't rated yet but the other users have to an arraylist then return the arraylist; 
+	@Override
+	public List<Movie> getUserRecommendations(Long userID) 
+	{
+		ArrayList<Movie> recommendedMovies = new ArrayList<Movie>();
+		User thisUser = getUser(userID);
+
+		for (Long i = 01l; i < usersIndex.size(); i++)
+		{
+			User otherUserRatings = getUser(i);
+
+			if ( getSimilarity(userID, i)  >= 100)
+			{
+				for (Long ratedMovie: otherUserRatings.ratedMovieIds )
+				{
+					if ( !thisUser.ratedMovieIds.contains(ratedMovie) 
+							&& ( !recommendedMovies.contains(getMovie(ratedMovie) ) )  ) 
+					{
+						recommendedMovies.add(getMovie(ratedMovie) );	
+					}
+
+				}	
+			}
+		}
+		return recommendedMovies;
+	}
+
+	//Get the similarity between 2 users, returns an integer value of the sum of the
+	//products of similar ratings. 
+	public int getSimilarity(Long userID, Long otherUserId) 
+	{
+		int similarity = 0;
+		List <Rating> thisUsersRated = getUserRatings(userID);
+		List <Rating> otherUserRatings = getUserRatings(otherUserId);
+
+		if (userID != otherUserId)
+		{
+			for (Rating rating : thisUsersRated)
+			{
+				for (Rating rats: otherUserRatings )
+				{
+					if (rating.movieId != null && rats.movieId !=null)
+					{
+						if (rating.movieId == rats.movieId)
+						{
+							similarity+=rating.rating*rats.rating;
+						}	
+					}
+
+				}
+			}
+		}
+
+		return similarity;
+	}
+
 
 
 

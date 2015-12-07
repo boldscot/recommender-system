@@ -18,6 +18,12 @@ public class Rating
 		this.rating = rating;
 		this.movieId = movieId;
 	}
+
+	public Long getMovieId()
+	{
+		return movieId;
+		
+	}
 	
 	@Override
 	public String toString()
@@ -46,6 +52,5 @@ public class Rating
 			return false;
 		}
 	}
-
 
 }

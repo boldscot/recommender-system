@@ -28,6 +28,7 @@ public class User
 	public String occupation;
 
 	public List<Rating> moviesRated = new ArrayList<>();
+	public List<Long> ratedMovieIds = new ArrayList<>();
 
 	public User(String firstName, String lastName, int age, String gender, String occupation)
 	{

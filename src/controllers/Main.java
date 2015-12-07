@@ -108,6 +108,20 @@ public class Main
 
 	}
 	
+	@Command(description = "Get similarity between users")
+	public void getSimilarity (@Param(name="user id") Long id, @Param (name ="other user id") Long otherId)
+	{
+		System.out.println(recoApi.getSimilarity(id, otherId) );
+
+	}
+	
+	@Command(description = "Check rated movies")
+	public void getRecommendedMovies (@Param(name="user id") Long id)
+	{
+		Collection<Movie> recommendedMovies = recoApi.getUserRecommendations(id);
+		System.out.println(recommendedMovies);
+	}
+	
 	@Command(description = "get the top ten movies")
 	public void getTopTenMovies () 
 	{

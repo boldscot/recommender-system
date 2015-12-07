@@ -22,7 +22,7 @@ public interface RecommenderInterface
 	Movie getMovie(Long movieID);
 	Movie getMovieByName(String movieName);
 	List<Rating> getUserRatings(Long userID);
-	//getUserRecommendations(userID)
+	List<Movie> getUserRecommendations(Long userID);
 	List<Movie> getTopTenMovies();
 	void load() throws Exception;
 	void store() throws Exception;

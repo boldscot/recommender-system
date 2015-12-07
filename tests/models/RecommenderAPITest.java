@@ -117,6 +117,35 @@ public class RecommenderAPITest
 		assertEquals(recommender.getUserRatings((long) 2), recommender.getUserRatings(newUser.id));
 	}
 	
+	@Test
+	public void getSimilarityAndRecommedations()
+	{
+		User newUser =  recommender.createUser("steve", "collins", 28, "M", "student");
+		User otherNewUser = recommender.createUser("clint", "eatwood", 72, "M", "director");
+		
+		Movie movie1 = recommender.addMovie("The Rock", "1999", "www.therock.com");
+		Movie movie2 = recommender.addMovie("Con Air", "1998", "www.conAir.com");
+		Movie movie3 = recommender.addMovie("Rocky", "1985", "www.rocky.com");
+		Movie movie4 = recommender.addMovie("The Good The Bad and The Ugly", "1966", "www.TGTBATU.com");
+		
+		recommender.addRating(newUser.id, movie1.movieId, 5);
+		recommender.addRating(newUser.id, movie2.movieId, 5);
+		recommender.addRating(newUser.id, movie3.movieId, 8);
+		recommender.addRating(newUser.id, movie4.movieId, 10);
+		
+		recommender.addRating(otherNewUser.id, movie1.movieId, 10);
+		recommender.addRating(otherNewUser.id, movie2.movieId, 10);
+		
+		assertEquals(recommender.getUserRatings(otherNewUser.id).size(), 2);
+		assertEquals(recommender.getUserRatings(newUser.id).size(), 4);
+		assertEquals(recommender.getSimilarity(newUser.id, otherNewUser.id), 100);
+		assertNotEquals(movie1.movieId, movie4.movieId);
+		assertEquals(recommender.getUserRecommendations(otherNewUser.id).size(), 2);
+		
+	}
+	
+
+	
 	
 	
 
