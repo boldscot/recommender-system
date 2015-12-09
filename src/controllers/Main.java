@@ -74,6 +74,14 @@ public class Main
 
 	}
 	
+	@Command(description="Return a User")
+	public void getUser (@Param(name="User Id") Long id)
+	{
+		
+		System.out.println(recoApi.getUser(id));
+
+	}
+	
 	@Command(description="Delete a Movie")
 	public void removeMovie (@Param(name="Movie Id") Long id)
 	{
